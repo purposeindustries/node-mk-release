@@ -1,5 +1,5 @@
 {
-  "name": "mk-release",
+  "name": "@pi/mk-release",
   "version": "1.0.0",
   "description": "application releaser cli with github and aws s3 support.",
   "bin": {
