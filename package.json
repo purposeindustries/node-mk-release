@@ -1,0 +1,23 @@
+{
+  "name": "mk-release",
+  "version": "1.7.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ruff",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-pi": "^2.0.0",
+    "tape": "^4.4.0"
+  },
+  "dependencies": {
+    "log": "^1.4.0",
+    "minimist": "^1.2.0",
+    "npv": "^0.1.0",
+    "shelljs": "^0.5.3"
+  }
+}
