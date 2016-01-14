@@ -1,13 +1,18 @@
 {
   "name": "mk-release",
-  "version": "1.28.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "application releaser cli with github and aws s3 support.",
+  "bin": {
+    "mk-release": "./bin/mk-release.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "eslint ."
   },
   "keywords": [],
-  "author": "ruff",
+  "author": {
+    "name": "Tamas Fodor",
+    "email": "tf@purposeindustries.co"
+  },
   "license": "ISC",
   "devDependencies": {
     "eslint": "^1.10.3",
@@ -19,5 +24,8 @@
     "minimist": "^1.2.0",
     "npv": "^0.1.0",
     "shelljs": "^0.5.3"
+  },
+  "publishConfig": {
+    "repository": "https://npm.registry.purposeindustries.co"
   }
 }
