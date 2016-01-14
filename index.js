@@ -1,5 +1,7 @@
 #! /usr/bin/env node
 
+'use strict';
+
 const minimist = require('minimist');
 const pkg = require('./package.json');
 const Log = require('log');
@@ -20,7 +22,14 @@ function createRelease(owner, repo, version, options) {
   const url = `https://api.github.com/repos/${owner}/${repo}/releases`;
   const payload = `"{\\"tag_name\\":\\"v${version}\\"}"`;
   log.info(`post to ${url} with ${payload}...`);
-  const result = _.exec(`curl -XPOST -d ${payload} -H 'Content-Type: application/json' -H "Authorization: token ${token}" ${url}`);
+  let result = _.exec(`curl -s -XPOST -d ${payload} -H 'Content-Type: application/json' -H "Authorization: token ${token}" ${url}`).output;
+  try {
+    result = JSON.parse(result);
+  } catch (error) {
+    result = {
+      message: error.message
+    };
+  }
   if (!result.id) {
     log.error(`failed to create release: ${result.message}`);
     process.exit(1);
@@ -33,12 +42,19 @@ function uploadAsset(owner, repo, version, options) {
     const token = options.token
     const url= `https://uploads.github.com/repos/${owner}/${repo}/releases/${release}/assets?name=${version}.tgz`;
     log.info(`uploading to ${url}...`);
-    const result = _.exec(`curl -XPOST -H 'Content-Type: application/gzip' -H "Authorization: token ${token}" --data-binary @release/${version}.tgz ${url}`);
-    const asset = (result || {}).id;
+    let result = _.exec(`curl -s -XPOST -H 'Content-Type: application/gzip' -H "Authorization: token ${token}" --data-binary @release/${version}.tgz ${url}`).output;
+    try {
+      result = JSON.parse(result);
+    } catch (error) {
+      result = {
+        message: error.message
+      };
+    }
+    const asset = result.id;
     if (!asset) {
-      log.info('upload failed... let`s try it again.');
+      log.info(`upload failed (${result.message})let\`s try it again`);
       log.info(result);
-      return uploadAsset();
+      return uploadAsset(owner, repo, version, options);
     }
     return asset;
 }
@@ -67,5 +83,7 @@ const release = createRelease(owner, repo, version, {
 });
 
 log.info(`release id: ${release}`);
-const asset = uploadAsset();
+const asset = uploadAsset(owner, repo, version, {
+  token: GITHUB_ACCESS_TOKEN
+});
 log.info(`asset uploaded: ${asset}`);
