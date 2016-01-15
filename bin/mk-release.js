@@ -104,8 +104,8 @@ function createAssetFile(version) {
   log.info(`release asset v${version} created.`);
 }
 
-const owner = argv['gh-user'];
-const repo = argv['gh-repo'];
+const owner = argv['gh-user'] || process.env.GITHUB_USER;
+const repo = argv['gh-repo'] || process.env.GITHUB_REPO;
 const githubToken = argv['gh-token'] || process.env.GITHUB_ACCESS_TOKEN;
 const awsAccessKey = argv['aws-access-key-id'] || process.env.AWS_ACCESS_KEY_ID;
 const awsSecret = argv['aws-secret-access-key'] || process.env.AWS_SECRET_ACCESS_KEY;
