@@ -98,14 +98,6 @@ function uploadAsset(owner, repo, version, options) {
     }
 }
 
-function createAssetFile(version) {
-  _.mkdir('-p', workDir + '/release');
-  _.rm(workDir + '/release/*');
-  log.info(`creating release asset v${version}...`);
-  _.exec(`tar cz --exclude .git --exclude release -f "${workDir}/release/${version}.tgz" ${workDir}/`);
-  log.info(`release asset v${version} created.`);
-}
-
 const owner = argv['gh-user'] || process.env.GITHUB_USER;
 const repo = argv['gh-repo'] || process.env.GITHUB_REPO;
 const githubToken = argv['gh-token'] || process.env.GITHUB_ACCESS_TOKEN;
@@ -114,8 +106,6 @@ const awsSecret = argv['aws-secret-access-key'] || process.env.AWS_SECRET_ACCESS
 const version = pkg.version;
 
 log.info(`create release v${version} on ${owner}/${repo}...`);
-
-createAssetFile(version);
 
 const release = createRelease(owner, repo, version, {
   token: githubToken
