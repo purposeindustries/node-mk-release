@@ -2,8 +2,10 @@
 
 'use strict';
 
+const workDir = process.cwd();
+
 const minimist = require('minimist');
-const pkg = require(__dirname + '/package.json');
+const pkg = require(workDir + '/package.json');
 const Log = require('log');
 const log = new Log();
 const _ = require('shelljs');
@@ -52,7 +54,7 @@ function uploadAsset(owner, repo, version, options) {
         },
       });
       var uploader = client.uploadFile({
-        localFile: `${__dirname}/release/${version}.tgz`,
+        localFile: `${workDir}/release/${version}.tgz`,
         s3Params: {
           Bucket: `${owner}-${repo}`,
           Key: `${version}.tgz`,
@@ -76,7 +78,7 @@ function uploadAsset(owner, repo, version, options) {
           -XPOST \
           -H 'Content-Type: application/gzip' \
           -H "Authorization: token ${token}" \
-          --data-binary @${__dirname}/release/${version}.tgz \
+          --data-binary @${workDir}/release/${version}.tgz \
           ${url}`
       ).output;
       try {
@@ -97,10 +99,10 @@ function uploadAsset(owner, repo, version, options) {
 }
 
 function createAssetFile(version) {
-  _.mkdir('-p', __dirname + '/release');
-  _.rm(__dirname + '/release/*');
+  _.mkdir('-p', workDir + '/release');
+  _.rm(workDir + '/release/*');
   log.info(`creating release asset v${version}...`);
-  _.exec(`tar cz --exclude .git --exclude release -f "${__dirname}/release/${version}.tgz" ${__dirname}/`);
+  _.exec(`tar cz --exclude .git --exclude release -f "${workDir}/release/${version}.tgz" ${workDir}/`);
   log.info(`release asset v${version} created.`);
 }
 
