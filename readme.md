@@ -3,6 +3,14 @@ mk-release
 
 > Creating a Github or a AWS S3 release has never been easier.
 
+## Table of Contents
+
+- [Install](#install)
+- [Usage](#usage)
+- [CLI Usage](#cli)
+- [API](#api)
+- [License](#license)
+
 ## Install
 
 ```sh
