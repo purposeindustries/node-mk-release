@@ -1,31 +1,37 @@
 {
-  "name": "@pi/mk-release",
-  "version": "1.2.0",
+  "name": "mk-release",
+  "version": "0.0.1",
   "description": "application releaser cli with github and aws s3 support.",
   "bin": {
     "mk-release": "./bin/mk-release.js"
   },
+  "main": "lib/index.js",
   "scripts": {
     "test": "eslint ."
   },
-  "keywords": [],
+  "keywords": [
+    "github",
+    "api",
+    "aws",
+    "s3",
+    "release",
+    "upload"
+  ],
   "author": {
     "name": "Tamas Fodor",
     "email": "tf@purposeindustries.co"
   },
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "eslint": "^1.10.3",
     "eslint-config-pi": "^2.0.0",
     "tape": "^4.4.0"
   },
   "dependencies": {
-    "log": "^1.4.0",
+    "chalk": "^1.1.1",
+    "log-symbols": "^1.0.2",
     "minimist": "^1.2.0",
-    "npv": "^0.1.0",
-    "shelljs": "^0.5.3"
-  },
-  "publishConfig": {
-    "repository": "https://npm.registry.purposeindustries.co"
+    "request": "^2.67.0",
+    "s3": "^4.4.0"
   }
 }
