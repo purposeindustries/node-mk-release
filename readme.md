@@ -58,6 +58,44 @@ $ mk-release [options]
 
 ```
 
+### The CLI optionally accepts the following environment variables.
+
+It's pretty useful for example when you'd like to set these sensitive properties on a CI system's (like [Circle](https://circleci.com/)) UI.
+
+NOTE: The option arguments has higher precedence over environment variables.
+
+`GITHUB_USER`
+
+The github user who owns the repo.
+
+`GITHUB_REPO`
+
+The name of the github repo which has the release.
+
+`GITHUB_ACCESS_TOKEN`
+
+Github personal access token to prove that you have access to the repo.
+
+`AWS_ACCESS_KEY_ID`
+
+The Amazon Web Services S3 [access key id](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html).
+
+`AWS_SECRET_ACCESS_KEY`
+
+The Amazon Web Services S3 [secret key](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html).
+
+`AWS_BUCKET`
+
+The name of your AWS S3 [bucket](http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html) in which you want the release file to be.
+
+`RELEASE_VERSION`
+
+The (semantic) version of the release.
+
+`RELEASE_ASSET_FOLDER`
+
+The path where the release file is located.
+
 ## API
 
 ### `github(options);`
@@ -132,7 +170,7 @@ Default: *the `release` folder in the root of your project.*
 
 ---
 
-NOTE: By default, all the releasers use the following pattern when it looks for the release file (in case the version of your release is `1.0.0`):
+NOTE: By default, all the releasers use the following pattern when they look for the release file (in case the version of your release is `1.0.0`):
 
 `./release/1.0.0.tgz`
 
