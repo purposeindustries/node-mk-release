@@ -8,6 +8,7 @@ mk-release
 - [Install](#install)
 - [Usage](#usage)
 - [CLI Usage](#cli)
+- [Environment Variables](#environment-variables)
 - [API](#api)
 - [License](#license)
 
@@ -66,7 +67,9 @@ $ mk-release [options]
 
 ```
 
-### The CLI optionally accepts the following environment variables.
+## Environment Variables
+
+The CLI optionally accepts the following environment variables.
 
 It's pretty useful for example when you'd like to set these sensitive properties on a CI system's (like [Circle](https://circleci.com/)) UI.
 
