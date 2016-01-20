@@ -8,7 +8,8 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "npm run lint && blue-tape 'lib/**/*.test.js'"
+    "pretest": "npm run lint",
+    "test": "blue-tape 'lib/**/*.test.js'"
   },
   "keywords": [
     "github",
