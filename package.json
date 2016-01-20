@@ -7,7 +7,8 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "test": "eslint ."
+    "lint": "eslint .",
+    "test": "npm run lint && blue-tape 'lib/**/*.test.js'"
   },
   "keywords": [
     "github",
@@ -25,9 +26,11 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "blue-tape": "^0.1.11",
     "eslint": "^1.10.3",
     "eslint-config-pi": "^2.0.0",
-    "tape": "^4.4.0"
+    "proxyquire": "^1.7.3",
+    "sinon": "^1.17.2"
   },
   "dependencies": {
     "chalk": "^1.1.1",
