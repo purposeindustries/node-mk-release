@@ -1,5 +1,7 @@
 mk-release
 ==========
+[![Build Status](https://circleci.com/gh/purposeindustries/node-mk-release.svg?&style=shield)](https://circleci.com/gh/purposeindustries/node-mk-release)
+
 
 > Creating a Github or a AWS S3 release has never been easier.
 
