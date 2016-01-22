@@ -1,0 +1,33 @@
+machine:
+  node:
+    version: 4.2.1
+
+dependencies:
+  pre:
+    - npm i -g mk-release
+
+test:
+  post:
+    - >
+      if [ -n "$RELEASE_TYPE" ]; then
+        git config --global user.email "user@company.com"
+        git config --global user.name "user"
+        npm version $RELEASE_TYPE;
+        repo=https://$GITHUB_ACCESS_TOKEN@github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git;
+        git push $repo $CIRCLE_BRANCH &> /dev/null;
+        git push --tags $repo &> /dev/null;
+      fi
+
+deployment:
+  release:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    commands:
+      - git config --global user.email "user@company.com"
+      - git config --global user.name "user"
+      - NODE_ENV=production npm run build
+      - npm prune --production
+      - npm dedupe
+      - mkdir -p release
+      - rm release/*
+      - version=$(node -pe "($(cat package.json)).version"); tar cz --exclude .git --exclude release -f "./release/$version.tgz" .
+      - mk-release --gh-user=<your github user> --gh-repo=<your github repository>
